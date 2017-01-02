@@ -1,4 +1,4 @@
-Youtube
+IGDB (Internet Game Database)
 =========
 
 Laravel PHP Facade/Wrapper for the IGDB API
@@ -33,9 +33,17 @@ Run `php artisan vendor:publish` and set your API key in the file:
 ## Usage
 
 ```php
+// Search Games by name
+$video = IGDB::searchGames('zelda');
+
+// Customize your return fields
+$video = IGDB::searchGames('zelda', ['name', 'release_dates', 'esrb', 'genres']);
+
+
+
 ```
 
-## Run Unit Test
+## (TODO) Run Unit Test
 If you have PHPUnit installed in your environment, run:
 
 ```bash

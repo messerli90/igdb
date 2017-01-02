@@ -87,6 +87,59 @@ class IGDB
     }
 
     /**
+     * Decode the response from IGDB, extract the single resource object.
+     * (Don't use this to decode the response containing list of objects)
+     *
+     * @param  string $apiData the api response from IGDB
+     * @throws \Exception
+     * @return \StdClass  an IGDB resource object
+     */
+    public function decodeSingle(&$apiData)
+    {
+        $resObj = json_decode($apiData);
+        if (isset($resObj->error)) {
+            $msg = "Error " . $resObj->error->code . " " . $resObj->error->message;
+            if (isset($resObj->error->errors[0])) {
+                $msg .= " : " . $resObj->error->errors[0]->reason;
+            }
+            throw new \Exception($msg);
+        } else {
+            $itemsArray = $resObj->items;
+            if (!is_array($itemsArray) || count($itemsArray) == 0) {
+                return false;
+            } else {
+                return $itemsArray[0];
+            }
+        }
+    }
+
+    /**
+     * Decode the response from IGDB, extract the multiple resource object.
+     *
+     * @param  string $apiData the api response from IGDB
+     * @throws \Exception
+     * @return \StdClass  an IGDB resource object
+     */
+    public function decodeMultiple(&$apiData)
+    {
+        $resObj = json_decode($apiData);
+        if (isset($resObj->error)) {
+            $msg = "Error " . $resObj->error->code . " " . $resObj->error->message;
+            if (isset($resObj->error->errors[0])) {
+                $msg .= " : " . $resObj->error->errors[0]->reason;
+            }
+            throw new \Exception($msg);
+        } else {
+            //$itemsArray = $resObj->items;
+            if (!is_array($resObj)) {
+                return false;
+            } else {
+                return $resObj;
+            }
+        }
+    }
+
+    /**
      * Using CURL to issue a GET request
      *
      * @param $url
