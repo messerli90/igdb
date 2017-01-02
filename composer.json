@@ -1,0 +1,31 @@
+{
+    "name": "messerli90/igdb",
+    "description": "Laravel PHP Facade/Wrapper for the IGDB API",
+    "keywords": ["gaming", "igdb", "api", "laravel", "messerli90"],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Michael Messerli",
+            "email": "michaelamesserli@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Messerli90\\IGDB\\": "src/messerli90/igdb"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "illuminate/support": ">= 5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "~5.0"
+    },
+    "autoload-dev": {
+        "classmap": [
+
+        ]
+    }
+}
