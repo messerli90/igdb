@@ -16,6 +16,7 @@ class IGDB
     public $APIs = array(
         'games' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/',
         'characters' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/characters/',
+        'companies' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/companies/',
         'game_engines' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/game_engines/',
         'game_modes' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/game_modes/',
         'keywords' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/keywords/',
@@ -30,11 +31,6 @@ class IGDB
         'genres' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/genres/',
         'release_dates' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/release_dates/'
     );
-
-    /**
-     * @var array
-     */
-    public $page_info = array();
 
     /**
      * Constructor
@@ -53,18 +49,238 @@ class IGDB
     }
 
     /**
-     * @param $search
+     * Get character information
+     *
+     * @param integer $id
      * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getCharacter($id, $fields = ['*'])
+    {
+        $API_URL = $this->getEndpoint('characters');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search characters by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchCharacters($search, $fields = ['*'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('characters');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get company information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getCompany($id, $fields = ['*'])
+    {
+        $API_URL = $this->getEndpoint('companies');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search companies by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchCompanies($search, $fields = ['*'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('companies');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get franchise information
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getFranchise($id, $fields = ['*'])
+    {
+        $API_URL = $this->getEndpoint('franchises');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search franchises by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchFranchises($search, $fields = ['*'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('franchises');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get game mode information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getGameMode($id, $fields = ['name', 'slug', 'url'])
+    {
+        $API_URL = $this->getEndpoint('game_modes');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search game modes by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchGameModes($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('game_modes');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get game information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getGame($id, $fields = ['*'])
+    {
+        $API_URL = $this->getEndpoint('games');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search games by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchGames($search, $fields = ['name', 'slug', 'summary', 'cover'], $order = 'popularity:desc')
+    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = 'release_dates.date:desc')
     {
-        $API_URL = $this->getApi('games');
+        $API_URL = $this->getEndpoint('games');
 
         $params = array(
             'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
             'order' => $order,
             'search' => $search,
         );
@@ -74,6 +290,389 @@ class IGDB
         return $this->decodeMultiple($apiData);
     }
 
+    /**
+     * Get genre information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getGenre($id, $fields = ['name', 'slug', 'url'])
+    {
+        $API_URL = $this->getEndpoint('genres');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search genres by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchGenres($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('genres');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get keyword information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getKeyword($id, $fields = ['name', 'slug', 'url'])
+    {
+        $API_URL = $this->getEndpoint('keywords');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search keywords by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchKeywords($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('keywords');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get people information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getPerson($id, $fields = ['*'])
+    {
+        $API_URL = $this->getEndpoint('people');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search people by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchPeople($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('people');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get platform information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getPlatform($id, $fields = ['name', 'logo', 'slug', 'url'])
+    {
+        $API_URL = $this->getEndpoint('platforms');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search platforms by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchPlatforms($search, $fields = ['name', 'logo', 'slug', 'url'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('platforms');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get player perspective information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getPlayerPerspective($id, $fields = ['name', 'slug', 'url'])
+    {
+        $API_URL = $this->getEndpoint('player_perspectives');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search player perspective by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchPlayerPerspectives($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('player_perspectives');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get pulse information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getPulse($id, $fields = ['*'])
+    {
+        $API_URL = $this->getEndpoint('pulses');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search pulses by title
+     *
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function fetchPulses($fields = ['*'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('pulses');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get collection information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getCollection($id, $fields = ['*'])
+    {
+        $API_URL = $this->getEndpoint('collections');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search collections by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchCollections($search, $fields = ['*'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('collections');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+    /**
+     * Get themes information by ID
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getTheme($id, $fields = ['name', 'slug', 'url'])
+    {
+        $API_URL = $this->getEndpoint('themes');
+        $API_URL .= $id;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeSingle($apiData);
+    }
+
+    /**
+     * Search themes by name
+     *
+     * @param string $search
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function searchThemes($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    {
+        $API_URL = $this->getEndpoint('themes');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'limit' => $limit,
+            'offset' => $offset,
+            'search' => $search,
+        );
+
+        $apiData = $this->api_get($API_URL, $params);
+
+        return $this->decodeMultiple($apiData);
+    }
+
+
     /*
      *  Internally used Methods, set visibility to public to enable more flexibility
      */
@@ -81,7 +680,7 @@ class IGDB
      * @param $name
      * @return mixed
      */
-    public function getApi($name)
+    public function getEndpoint($name)
     {
         return $this->APIs[$name];
     }
@@ -97,18 +696,14 @@ class IGDB
     public function decodeSingle(&$apiData)
     {
         $resObj = json_decode($apiData);
-        if (isset($resObj->error)) {
-            $msg = "Error " . $resObj->error->code . " " . $resObj->error->message;
-            if (isset($resObj->error->errors[0])) {
-                $msg .= " : " . $resObj->error->errors[0]->reason;
-            }
+        if (isset($resObj->status)) {
+            $msg = "Error " . $resObj->status . " " . $resObj->message;
             throw new \Exception($msg);
         } else {
-            $itemsArray = $resObj->items;
-            if (!is_array($itemsArray) || count($itemsArray) == 0) {
+            if (!is_array($resObj) || count($resObj) == 0) {
                 return false;
             } else {
-                return $itemsArray[0];
+                return $resObj[0];
             }
         }
     }
@@ -123,11 +718,8 @@ class IGDB
     public function decodeMultiple(&$apiData)
     {
         $resObj = json_decode($apiData);
-        if (isset($resObj->error)) {
-            $msg = "Error " . $resObj->error->code . " " . $resObj->error->message;
-            if (isset($resObj->error->errors[0])) {
-                $msg .= " : " . $resObj->error->errors[0]->reason;
-            }
+        if (isset($resObj->status)) {
+            $msg = "Error " . $resObj->status . " " . $resObj->message;
             throw new \Exception($msg);
         } else {
             //$itemsArray = $resObj->items;
