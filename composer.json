@@ -11,16 +11,14 @@
         }
     ],
     "autoload": {
-        "psr-4": {
-            "Messerli90\\IGDB\\": "src/messerli90/igdb"
+        "psr-0": {
+            "Messerli90\\IGDB\\": "src/"
         }
     },
     "require": {
-        "php": ">=5.5.0",
-        "illuminate/support": ">= 5.0"
+        "php": ">=5.3.0"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.0",
         "phpunit/phpunit": "~5.0"
     },
     "autoload-dev": {

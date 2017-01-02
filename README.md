@@ -1,6 +1,8 @@
 IGDB (Internet Game Database)
 =========
 
+[![Build Status](https://travis-ci.org/messerli90/igdb.svg?branch=master)](https://travis-ci.org/messerli90/igdb)
+
 Laravel PHP Facade/Wrapper for the IGDB API
 
 You need to create an application and create your access token in the [Mashape Marketplace](https://market.mashape.com/igdbcom/internet-game-database).
@@ -120,7 +122,7 @@ $themes = IGDB::searchThemes('warfare');
 
 ```
 
-## (TODO) Run Unit Test
+## Run Unit Test
 If you have PHPUnit installed in your environment, run:
 
 ```bash
@@ -146,5 +148,12 @@ The returned JSON is decoded as PHP objects (not Array).
 ##Credits
 Built on code from alaouy's [Youtube](https://github.com/alaouy/Youtube).
 
-##Contribute
-If you'd like to contribute feel free to fork and submit a PR.
+## Contribute
+If you'd like to contribute feel free to fork and submit a PR. I'll be updating the Todo list below with new feature ideas
+
+## TODO
+
+- Improve test coverage
+- Image facade
+
+
