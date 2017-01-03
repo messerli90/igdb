@@ -13,7 +13,7 @@ class IGDB
     /**
      * @var array
      */
-    public $APIs = array(
+    private $ENDPOINTS = array(
         'games' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/games/',
         'characters' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/characters/',
         'companies' => 'https://igdbcom-internet-game-database-v1.p.mashape.com/companies/',
@@ -65,7 +65,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -91,7 +91,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -113,7 +113,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -139,7 +139,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -161,7 +161,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -187,7 +187,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -209,7 +209,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -235,7 +235,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -257,7 +257,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -285,7 +285,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -307,7 +307,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -333,7 +333,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -355,7 +355,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -381,7 +381,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -403,7 +403,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -429,7 +429,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -451,7 +451,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -477,7 +477,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -499,7 +499,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -525,7 +525,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -547,7 +547,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -571,7 +571,7 @@ class IGDB
             'offset' => $offset
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -593,7 +593,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -619,7 +619,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -641,7 +641,7 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeSingle($apiData);
     }
@@ -667,7 +667,7 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->api_get($API_URL, $params);
+        $apiData = $this->apiGet($API_URL, $params);
 
         return $this->decodeMultiple($apiData);
     }
@@ -680,9 +680,9 @@ class IGDB
      * @param $name
      * @return mixed
      */
-    public function getEndpoint($name)
+    private function getEndpoint($name)
     {
-        return $this->APIs[$name];
+        return $this->ENDPOINTS[$name];
     }
 
     /**
@@ -693,7 +693,7 @@ class IGDB
      * @throws \Exception
      * @return \StdClass  an IGDB resource object
      */
-    public function decodeSingle(&$apiData)
+    private function decodeSingle(&$apiData)
     {
         $resObj = json_decode($apiData);
         if (isset($resObj->status)) {
@@ -715,7 +715,7 @@ class IGDB
      * @throws \Exception
      * @return \StdClass  an IGDB resource object
      */
-    public function decodeMultiple(&$apiData)
+    private function decodeMultiple(&$apiData)
     {
         $resObj = json_decode($apiData);
         if (isset($resObj->status)) {
@@ -739,7 +739,7 @@ class IGDB
      * @return mixed
      * @throws \Exception
      */
-    public function api_get($url, $params)
+    private function apiGet($url, $params)
     {
         //boilerplate for CURL
         $tuCurl = curl_init();
