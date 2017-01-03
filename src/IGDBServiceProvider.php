@@ -32,7 +32,7 @@ class IGDBServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->publishes(array(__DIR__ . '/../../config/igdb.php' => config_path('igdb.php')));
+        $this->publishes(array(__DIR__ . '/../config/igdb.php' => config_path('igdb.php')));
 
         $this->app->singleton("igdb", function(){
             return $this->app->make('Messerli90\IGDB\IGDB', [config('igdb.KEY')]);

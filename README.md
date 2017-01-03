@@ -8,7 +8,7 @@ Laravel PHP Facade/Wrapper for the IGDB API
 You need to create an application and create your access token in the [Mashape Marketplace](https://market.mashape.com/igdbcom/internet-game-database).
 
 > This packages is still WiP (Work in Progress), do not try to use in your app. If you'd like to contribute feel free to fork and submit a PR.
-> 
+>
 > 2017/01/02
 
 ## Installation
@@ -24,7 +24,7 @@ Now open up `app/config/app.php` and add the service provider to your `providers
 
 ```php
 'providers' => array(
-	'Messerli90\IGDB\IGDBServiceProvider',
+	Messerli90\IGDB\IGDBServiceProvider::class,
 )
 ```
 
@@ -155,5 +155,3 @@ If you'd like to contribute feel free to fork and submit a PR. I'll be updating 
 
 - Improve test coverage
 - Image facade
-
-
