@@ -2,6 +2,8 @@ IGDB (Internet Game Database)
 =========
 
 [![Build Status](https://travis-ci.org/messerli90/igdb.svg?branch=master)](https://travis-ci.org/messerli90/igdb)
+[![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-blue.svg)](http://laravel.com)
+
 
 Laravel PHP Facade/Wrapper for the IGDB API
 

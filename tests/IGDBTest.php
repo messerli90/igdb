@@ -24,14 +24,14 @@ class IGDBTest extends \PHPUnit_Framework_TestCase
         $this->youtube = null;
     }
 
-    /** @expectException */
+    /** @test @expectException */
     public function invalid_api_key_throws_error ()
     {
+        $this->expectException('\Exception');
+
         $this->igdb = new IGDB(['key' => 'nonsense']);
         $game_id = 9630;
         $this->igdb->getGame($game_id);
-
-        $this->expectException('\Exception');
     }
 
     /** @test */
