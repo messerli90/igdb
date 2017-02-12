@@ -279,7 +279,7 @@ class IGDB
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = 'release_dates.date:desc')
+    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('games');
 
