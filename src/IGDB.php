@@ -2,6 +2,7 @@
 
 namespace Messerli90\IGDB;
 
+use GuzzleHttp\Client;
 
 class IGDB
 {
@@ -10,16 +11,20 @@ class IGDB
      */
     protected $igdbKey;
 
+    /**
+     * @var \GuzzleHttp\Client
+     */
+    protected $httpClient;
 
     /**
-     * @const $ENDPOINT
+     * @var string
      */
-    private $ENDPOINT = 'https://igdbcom-internet-game-database-v1.p.mashape.com/';
+    protected $baseUrl;
 
     /**
      * @var array
      */
-    private $VALID_RESOURCES = array(
+    const VALID_RESOURCES = [
         'games' => 'games',
         'characters' => 'characters',
         'companies' => 'companies',
@@ -36,22 +41,31 @@ class IGDB
         'franchises' => 'franchises',
         'genres' => 'genres',
         'release_dates' => 'release_dates'
-    );
+    ];
+
 
     /**
-     * Constructor
-     * $igdb = new IGDB(array('key' => 'KEY HERE'))
+     * IGDB constructor.
      *
-     * @param string $key
+     * @param $key
+     *
+     * @param $url
+     *
      * @throws \Exception
      */
-    public function __construct($key)
+    public function __construct($key, $url)
     {
         if (!is_string($key) || empty($key)) {
-            throw new \Exception('IGDB API key is Required, please visit https://market.mashape.com/igdbcom/internet-game-database');
+            throw new \Exception('IGDB API key is required, please visit https://api.igdb.com/ to request a key');
+        }
+
+        if (!is_string($url) || empty($url)) {
+            throw new \Exception('IGDB Request URL is required, please visit https://api.igdb.com/ to get your Request URL');
         }
 
         $this->igdbKey = $key;
+        $this->baseUrl = $url;
+        $this->httpClient = new Client();
     }
 
     /**
@@ -64,6 +78,7 @@ class IGDB
      */
     public function getCharacter($characterId, $fields = ['*'])
     {
+        //dd(config('services.igdb.url'));
         $apiUrl = $this->getEndpoint('characters');
         $apiUrl .= $characterId;
 
@@ -688,7 +703,7 @@ class IGDB
      */
     private function getEndpoint($name)
     {
-        return $this->ENDPOINT.$this->VALID_RESOURCES[$name].'/';
+        return rtrim($this->baseUrl, '/').'/'.self::VALID_RESOURCES[$name].'/';
     }
 
     /**
@@ -725,6 +740,7 @@ class IGDB
     private function decodeMultiple(&$apiData)
     {
         $resObj = json_decode($apiData);
+
         if (isset($resObj->status)) {
             $msg = "Error " . $resObj->status . " " . $resObj->message;
             throw new \Exception($msg);
@@ -748,25 +764,25 @@ class IGDB
      */
     private function apiGet($url, $params)
     {
-        //boilerplate for CURL
-        $tuCurl = curl_init();
-        curl_setopt($tuCurl, CURLOPT_URL, $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params));
-        if (strpos($url, 'https') === false) {
-            curl_setopt($tuCurl, CURLOPT_PORT, 80);
-        } else {
-            curl_setopt($tuCurl, CURLOPT_PORT, 443);
-        }
-        curl_setopt($tuCurl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($tuCurl, CURLOPT_HTTPHEADER, [
-            'X-Mashape-Key: ' . $this->igdbKey,
-            'Accept: application/json'
-        ]);
+        $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
 
-        $tuData = curl_exec($tuCurl);
-        if (curl_errno($tuCurl)) {
-            throw new \Exception('Curl Error : ' . curl_error($tuCurl));
+        try {
+            $response = $this->httpClient->request('GET', $url, [
+                'headers' => [
+                    'user-key' => $this->igdbKey,
+                    'Accept' => 'application/json'
+                ]
+            ]);
+        } catch (RequestException $exception) {
+            if ($response = $exception->getResponse()) {
+                throw new \Exception($exception);
+            }
+            throw new \Exception($exception);
+        } catch (Exception $exception) {
+            throw new \Exception($exception);
         }
-        return $tuData;
+
+        return $response->getBody();
     }
 
 }

@@ -3,7 +3,6 @@
 namespace Messerli90\IGDB;
 
 use Illuminate\Support\ServiceProvider;
-use Messerli90\IGDB\Facades\IGDB;
 
 class IGDBServiceProvider extends ServiceProvider
 {
@@ -21,8 +20,7 @@ class IGDBServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('IGDB', IGDB::class);
+        //
     }
 
     /**
@@ -32,10 +30,8 @@ class IGDBServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->publishes(array(__DIR__ . '/../config/igdb.php' => config_path('igdb.php')));
-
-        $this->app->singleton("igdb", function(){
-            return $this->app->make('Messerli90\IGDB\IGDB', [config('igdb.KEY')]);
+        $this->app->bind('igdb', function () {
+            return new IGDB(config('services.igdb.key'), config('services.igdb.url'));
         });
     }
 
@@ -46,6 +42,6 @@ class IGDBServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('igdb');
+        return [IGDB::class];
     }
 }

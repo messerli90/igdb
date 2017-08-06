@@ -15,13 +15,14 @@ class IGDBTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $TEST_API_KEY = 'xbHBrXHDBVmshH3pw1DVPhS7WAn1p12FAofjsnz8li0LSV3d7o';
-        $this->igdb = new IGDB($TEST_API_KEY);
+        $TEST_API_KEY = '017ad152466d0ffb55bd8f5b89989491';
+        $TEST_URL = 'https://api-2445582011268.apicast.io';
+        $this->igdb = new IGDB($TEST_API_KEY, $TEST_URL);
     }
 
     public function tearDown()
     {
-        $this->youtube = null;
+        $this->igdb = null;
     }
 
     /** @test @expectException */
@@ -29,7 +30,7 @@ class IGDBTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectException('\Exception');
 
-        $this->igdb = new IGDB(['key' => 'nonsense']);
+        $this->igdb = new IGDB('nonsense', 'url');
         $game_id = 9630;
         $this->igdb->getGame($game_id);
     }
