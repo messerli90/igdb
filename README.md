@@ -3,21 +3,23 @@ IGDB (Internet Game Database)
 
 [![Build Status](https://travis-ci.org/messerli90/igdb.svg?branch=master)](https://travis-ci.org/messerli90/igdb)
 [![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-blue.svg)](http://laravel.com)
+[![License](https://poser.pugx.org/messerli90/igdb/license)](https://packagist.org/packages/messerli90/igdb)
+[![Total Downloads](https://poser.pugx.org/messerli90/igdb/downloads)](https://packagist.org/packages/messerli90/igdb)
 
+## Introduction
+This packages provides a nice and easy wrapper around the [IGDB API](https://igdb.github.io/api/about/welcome/) for use in your Laravel application.
 
-Laravel PHP Facade/Wrapper for the IGDB API
-
-You need to create an application and create your access token in the [Mashape Marketplace](https://market.mashape.com/igdbcom/internet-game-database).
-
-> This packages is still WiP (Work in Progress), do not try to use in your app. If you'd like to contribute feel free to fork and submit a PR.
->
-> 2017/01/02
+In order to use the IGDB API, you must have a account and key. You can register your app at [https://api.igdb.com/](https://api.igdb.com/). 
 
 ## Installation
 
 Add `messerli90/igdb` to your `composer.json`.
 ```
-"messerli90/igdb": "dev-master"
+"messerli90/igdb": "~1.0"
+```
+or 
+```bash
+composer require messerli90/igdb
 ```
 
 Run `composer update` to pull down the latest version of the package.
@@ -26,16 +28,23 @@ Now open up `app/config/app.php` and add the service provider to your `providers
 
 ```php
 'providers' => array(
-	Messerli90\IGDB\IGDBServiceProvider::class,
+    Messerli90\IGDB\IGDBServiceProvider::class,
 )
 ```
 
-## Configuration
-### For Laravel 5
-Run `php artisan vendor:publish` and set your API key in the file:
-
+Optionally, add the facade to your `aliases` array
+```php
+'IGDB' => \Messerli90\IGDB\Facades\IGDB::class,
 ```
-/app/config/igdb.php
+
+## Configuration
+
+Add the `igdb` to your `config/services.php` array
+```php
+'igdb' => [
+    'key' => 'YOUR_IGDB_KEY',
+    'url' => 'YOUR_IGDB_URL
+]
 ```
 
 ## Usage
@@ -124,36 +133,33 @@ $themes = IGDB::searchThemes('warfare');
 
 ```
 
+## Format of returned data
+
+The returned JSON data is decoded as a PHP object.
+
 ## Run Unit Test
+
 If you have PHPUnit installed in your environment, run:
 
 ```bash
 $ phpunit
 ```
 
-If you don't have PHPUnit installed, you can run the following:
-
-```bash
-$ composer update
-$ ./vendor/bin/phpunit
-```
-
-## Format of returned data
-The returned JSON is decoded as PHP objects (not Array).
-
-
 ## IGDB API
-- [IGDB API Doc](https://market.mashape.com/igdbcom/internet-game-database)
-- [Obtain API key from Mashape](https://market.mashape.com/igdbcom/internet-game-database)
+
+- [IGDB API Docs](https://igdb.github.io/api/about/welcome/)
+- [Register application and obtain API key](https://api.igdb.com/)
 
 
-##Credits
-Built on code from alaouy's [Youtube](https://github.com/alaouy/Youtube).
+## Contributing
 
-## Contribute
-If you'd like to contribute feel free to fork and submit a PR. I'll be updating the Todo list below with new feature ideas
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## TODO
+## Credits
 
-- Improve test coverage
-- Image facade
+- [Michael Messerli](https://twitter.com/michaelmesserli)
+- [k4kuz0](https://github.com/k4kuz0)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
