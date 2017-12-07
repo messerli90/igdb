@@ -98,6 +98,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -147,6 +148,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -196,6 +198,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -245,6 +248,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -344,6 +348,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -393,6 +398,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -442,6 +448,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -491,6 +498,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -540,6 +548,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -635,6 +644,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
@@ -684,6 +694,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
