@@ -693,15 +693,11 @@ class IGDB
         return $this->decodeMultiple($apiData);
     }
 
-
-    /*
-     *  Internally used Methods, set visibility to public to enable more flexibility
-     */
     /**
      * @param $name
      * @return mixed
      */
-    private function getEndpoint($name)
+    protected function getEndpoint($name)
     {
         return rtrim($this->baseUrl, '/').'/'.self::VALID_RESOURCES[$name].'/';
     }
@@ -714,7 +710,7 @@ class IGDB
      * @throws \Exception
      * @return \StdClass  an IGDB resource object
      */
-    private function decodeSingle(&$apiData)
+    protected function decodeSingle(&$apiData)
     {
         $resObj = json_decode($apiData);
 
@@ -737,7 +733,7 @@ class IGDB
      * @throws \Exception
      * @return \StdClass  an IGDB resource object
      */
-    private function decodeMultiple(&$apiData)
+    protected function decodeMultiple(&$apiData)
     {
         $resObj = json_decode($apiData);
 
@@ -762,7 +758,7 @@ class IGDB
      * @return mixed
      * @throws \Exception
      */
-    private function apiGet($url, $params)
+    protected function apiGet($url, $params)
     {
         $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
 
