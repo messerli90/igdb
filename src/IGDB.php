@@ -144,7 +144,7 @@ class IGDB
      * @return \StdClass
      * @throws \Exception
      */
-    public function getReleases($filters = [], $fields = ['*'], $limit = 10, $offset = 0, $order = null)
+    public function getReleases($filters = [], $fields = ['*'], $limit = 10, $offset = 0, $order = null, $expand = [])
     {
         $apiUrl = $this->getEndpoint('release_dates');
 
@@ -154,6 +154,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
 			'order' => $order,
+            'expand' => implode(',', $expand)
         );
 
         return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
@@ -358,10 +359,11 @@ class IGDB
      * @param integer $limit
      * @param integer $offset
      * @param string $order
+     * @param array $filters
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null)
+    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null, $filters = [])
     {
         $apiUrl = $this->getEndpoint('games');
 
@@ -369,9 +371,11 @@ class IGDB
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
+            'filters' => $filters,
             'order' => $order,
             'search' => $search,
         );
+        if ($search == '') unset($params['search']);
 
         return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
         {
