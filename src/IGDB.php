@@ -16,6 +16,11 @@ class IGDB
      * @var \GuzzleHttp\Client
      */
     protected $httpClient;
+    
+    /**
+     * @var integer
+     */
+    protected $cache;
 
     /**
      * @var string
@@ -117,7 +122,38 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
-						'order' => $order,
+                        'order' => $order,
+        );
+
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
+        
+    }
+    
+    /**
+     * Search characters by name
+     *
+     * @param array $filters
+     * @param array $fields
+     * @param integer $limit
+     * @param integer $offset
+     * @param string $order
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getReleases($filters = [], $fields = ['*'], $limit = 10, $offset = 0, $order = null)
+    {
+        $apiUrl = $this->getEndpoint('release_dates');
+
+        $params = array(
+            'fields' => implode(',', $fields),
+            'filters' => $filters,
+            'limit' => $limit,
+            'offset' => $offset,
+			'order' => $order,
         );
 
         return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
@@ -843,6 +879,14 @@ class IGDB
      */
     private function apiGet($url, $params)
     {
+        if (isset($params['filters'])) {
+            foreach ($params['filters'] as $filter) {
+                list($key, $value) = explode('=', $filter, 2);
+                $params[$key] = $value;
+            }
+            unset($params['filters']);
+        }
+        
         $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
 
         try {
