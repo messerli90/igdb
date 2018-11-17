@@ -66,6 +66,9 @@ $character = IGDB::getCharacter(4534);
 // Search Characters by name
 $characters = IGDB::searchCharacters('fisher');
 
+// Get upcoming releases
+$releases = IGDB::getReleases($filters = ['filter[platform][eq]=48', 'filter[date][gt]=1500619813000], $fields = ['*'], $limit = 10, $offset = 0, $order = 'date:asc');
+
 // Get Company by ID
 $companies = IGDB::getCompany('ubisoft');
 
