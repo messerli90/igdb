@@ -39,11 +39,12 @@ Optionally, add the facade to your `aliases` array
 
 ## Configuration
 
-Add the `igdb` to your `config/services.php` array
+Add the `igdb` to your `config/services.php` array. Set cache to a number of minutes to cache responses.
 ```php
 'igdb' => [
     'key' => 'YOUR_IGDB_KEY',
-    'url' => 'YOUR_IGDB_URL'
+    'url' => 'YOUR_IGDB_URL',
+    'cache' => 0
 ]
 ```
 

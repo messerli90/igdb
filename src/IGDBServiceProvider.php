@@ -31,7 +31,7 @@ class IGDBServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('igdb', function () {
-            return new IGDB(config('services.igdb.key'), config('services.igdb.url'));
+            return new IGDB(config('services.igdb.key'), config('services.igdb.url'), config('services.igdb.cache'));
         });
     }
 

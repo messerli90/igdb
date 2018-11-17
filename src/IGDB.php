@@ -3,6 +3,7 @@
 namespace Messerli90\IGDB;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
 
 class IGDB
 {
@@ -53,7 +54,7 @@ class IGDB
      *
      * @throws \Exception
      */
-    public function __construct($key, $url)
+    public function __construct($key, $url, $cache)
     {
         if (!is_string($key) || empty($key)) {
             throw new \Exception('IGDB API key is required, please visit https://api.igdb.com/ to request a key');
@@ -65,6 +66,7 @@ class IGDB
 
         $this->igdbKey = $key;
         $this->baseUrl = $url;
+        $this->cache = $cache;
         $this->httpClient = new Client();
     }
 
@@ -78,7 +80,7 @@ class IGDB
      */
     public function getCharacter($characterId, $fields = ['*'])
     {
-        //dd(config('services.igdb.url'));
+        
         $apiUrl = $this->getEndpoint('characters');
         $apiUrl .= $characterId;
 
@@ -86,9 +88,13 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
 
-        return $this->decodeSingle($apiData);
+        
     }
 
     /**
@@ -114,9 +120,12 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
+        
     }
 
     /**
@@ -135,10 +144,12 @@ class IGDB
         $params = array(
             'fields' => implode(',', $fields)
         );
-
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -163,10 +174,12 @@ class IGDB
             'search' => $search,
 						'order' => $order,
         );
-
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -186,9 +199,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -214,9 +229,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -236,9 +253,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -264,9 +283,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -286,9 +307,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -314,9 +337,11 @@ class IGDB
             'search' => $search,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -336,9 +361,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -364,9 +391,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -386,9 +415,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -414,9 +445,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -436,9 +469,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -464,9 +499,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -486,9 +523,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -514,9 +553,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -536,9 +577,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -564,9 +607,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -586,9 +631,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -610,9 +657,11 @@ class IGDB
             'offset' => $offset
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -632,9 +681,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -660,9 +711,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
     /**
@@ -682,9 +735,11 @@ class IGDB
             'fields' => implode(',', $fields)
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeSingle($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
     }
 
     /**
@@ -710,9 +765,11 @@ class IGDB
 						'order' => $order,
         );
 
-        $apiData = $this->apiGet($apiUrl, $params);
-
-        return $this->decodeMultiple($apiData);
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeMultiple($apiData);
+        });
     }
 
 
