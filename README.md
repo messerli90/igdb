@@ -43,7 +43,7 @@ Add the `igdb` to your `config/services.php` array
 ```php
 'igdb' => [
     'key' => 'YOUR_IGDB_KEY',
-    'url' => 'YOUR_IGDB_URL
+    'url' => 'YOUR_IGDB_URL'
 ]
 ```
 
