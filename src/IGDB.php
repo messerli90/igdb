@@ -98,10 +98,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchCharacters($search, $fields = ['*'], $limit = 10, $offset = 0)
+    public function searchCharacters($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('characters');
 
@@ -110,6 +111,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -146,10 +148,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchCompanies($search, $fields = ['*'], $limit = 10, $offset = 0)
+    public function searchCompanies($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('companies');
 
@@ -158,6 +161,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -194,10 +198,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchFranchises($search, $fields = ['*'], $limit = 10, $offset = 0)
+    public function searchFranchises($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('franchises');
 
@@ -206,6 +211,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -242,10 +248,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchGameModes($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    public function searchGameModes($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('game_modes');
 
@@ -254,6 +261,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -340,10 +348,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchGenres($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    public function searchGenres($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('genres');
 
@@ -352,6 +361,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -388,10 +398,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchKeywords($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    public function searchKeywords($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('keywords');
 
@@ -400,6 +411,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -436,10 +448,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchPeople($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    public function searchPeople($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('people');
 
@@ -448,6 +461,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -484,10 +498,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchPlatforms($search, $fields = ['name', 'logo', 'slug', 'url'], $limit = 10, $offset = 0)
+    public function searchPlatforms($search, $fields = ['name', 'logo', 'slug', 'url'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('platforms');
 
@@ -496,6 +511,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -532,10 +548,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchPlayerPerspectives($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    public function searchPlayerPerspectives($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('player_perspectives');
 
@@ -544,6 +561,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -626,10 +644,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchCollections($search, $fields = ['*'], $limit = 10, $offset = 0)
+    public function searchCollections($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('collections');
 
@@ -638,6 +657,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
@@ -674,10 +694,11 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
+     * @param string $order
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchThemes($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
+    public function searchThemes($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0, $order = null)
     {
         $apiUrl = $this->getEndpoint('themes');
 
@@ -686,6 +707,7 @@ class IGDB
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
+						'order' => $order,
         );
 
         $apiData = $this->apiGet($apiUrl, $params);
