@@ -46,7 +46,9 @@ class IGDB
         'reviews' => 'reviews',
         'franchises' => 'franchises',
         'genres' => 'genres',
-        'release_dates' => 'release_dates'
+        'release_dates' => 'release_dates',
+        'pulse_sources' => 'pulse_sources',
+        'pages' => 'pages',
     ];
 
 
@@ -653,6 +655,33 @@ class IGDB
             return $this->decodeMultiple($apiData);
         });
     }
+    
+    
+    /**
+     * Get page information by ID
+     *
+     * @param integer $pageId
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getPage($pageId, $fields = ['*'])
+    {
+        $apiUrl = $this->getEndpoint('pages');
+        $apiUrl .= $pageId;
+
+        $params = array(
+            'fields' => implode(',', $fields)
+        );
+
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
+    }
+    
+        
 
     /**
      * Get pulse information by ID
@@ -677,6 +706,30 @@ class IGDB
             return $this->decodeSingle($apiData);
         });
     }
+    
+    /**
+     * Get pulse information by ID
+     *
+     * @param integer $pulseId
+     * @param array $fields
+     * @return \StdClass
+     * @throws \Exception
+     */
+    public function getPulseSource($sourceId)
+    {
+        $apiUrl = $this->getEndpoint('pulse_sources');
+        $apiUrl .= $sourceId;
+
+        $params = array(
+            
+        );
+
+        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
+        {
+            $apiData = $this->apiGet($apiUrl, $params);
+            return $this->decodeSingle($apiData);
+        });
+    }
 
     /**
      * Search pulses by title
@@ -687,13 +740,15 @@ class IGDB
      * @return \StdClass
      * @throws \Exception
      */
-    public function fetchPulses($fields = ['*'], $limit = 10, $offset = 0)
+    public function fetchPulses($fields = ['*'], $limit = 10, $offset = 0, $order = null, $filters = [])
     {
         $apiUrl = $this->getEndpoint('pulses');
 
         $params = array(
             'fields' => implode(',', $fields),
             'limit' => $limit,
+            'filters' => $filters,
+            'order' => $order,
             'offset' => $offset
         );
 
