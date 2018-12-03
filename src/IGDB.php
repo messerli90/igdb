@@ -291,16 +291,19 @@ class IGDB
      * @param integer $limit
      * @param integer $offset
      * @param string $order
+     * @param array $filters
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null)
+    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null, array $filters = [], $expand = '')
     {
         $apiUrl = $this->getEndpoint('games');
 
         $params = array(
             'fields' => implode(',', $fields),
             'limit' => $limit,
+            'filters' => $filters,
+            'expand' => $expand,
             'offset' => $offset,
             'order' => $order,
             'search' => $search,
@@ -674,8 +677,7 @@ class IGDB
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
-     * @return \StdClass
-     * @throws \Exception
+     * @return void
      */
     public function searchThemes($search, $fields = ['name', 'slug', 'url'], $limit = 10, $offset = 0)
     {
