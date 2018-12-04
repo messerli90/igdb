@@ -286,28 +286,34 @@ class IGDB
     /**
      * Search games by name
      *
-     * @param string $search
+     * @param null|string $search
      * @param array $fields
      * @param integer $limit
      * @param integer $offset
      * @param string $order
      * @param array $filters
+     * @param string $expand
      * @return \StdClass
      * @throws \Exception
      */
-    public function searchGames($search, $fields = ['*'], $limit = 10, $offset = 0, $order = null, array $filters = [], $expand = '')
+    public function searchGames($search = null, $fields = ['*'], $limit = 10, $offset = 0, $order = null, array $filters = [], $expand = '')
     {
         $apiUrl = $this->getEndpoint('games');
 
-        $params = array(
-            'fields' => implode(',', $fields),
-            'limit' => $limit,
-            'filters' => $filters,
+        $csvFields = implode(',', $fields);
+
+        $params = [
+            'fields' => $csvFields,
+            'limit'  => $limit,
+            'filter' => $filters,
             'expand' => $expand,
             'offset' => $offset,
-            'order' => $order,
-            'search' => $search,
-        );
+            'order'  => $order
+        ];
+
+        if ($search !== null) {
+            $params['search'] = $search;
+        }
 
         $apiData = $this->apiGet($apiUrl, $params);
 
