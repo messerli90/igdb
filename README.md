@@ -39,11 +39,12 @@ Optionally, add the facade to your `aliases` array
 
 ## Configuration
 
-Add the `igdb` to your `config/services.php` array
+Add the `igdb` to your `config/services.php` array. Set cache to a number of minutes to cache responses.
 ```php
 'igdb' => [
     'key' => 'YOUR_IGDB_KEY',
-    'url' => 'YOUR_IGDB_URL
+    'url' => 'YOUR_IGDB_URL',
+    'cache' => 0
 ]
 ```
 
@@ -64,6 +65,9 @@ $character = IGDB::getCharacter(4534);
 
 // Search Characters by name
 $characters = IGDB::searchCharacters('fisher');
+
+// Get upcoming releases
+$releases = IGDB::getReleases($filters = ['filter[platform][eq]=48', 'filter[date][gt]=1500619813000], $fields = ['*'], $limit = 10, $offset = 0, $order = 'date:asc');
 
 // Get Company by ID
 $companies = IGDB::getCompany('ubisoft');
